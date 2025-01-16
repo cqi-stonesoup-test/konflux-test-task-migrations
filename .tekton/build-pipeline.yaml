@@ -30,7 +30,7 @@ spec:
       - name: name
         value: summary
       - name: bundle
-        value: quay.io/mytestworkload/task-summary:0.2@sha256:f2ebcc8ff7cd21c2e0a768ca9ac0dbdfb2ec329e60291868f568c2cef99f7bb5
+        value: quay.io/mytestworkload/task-summary:0.1@sha256:2cdff56c5a1622fd7ebef178013b611ef72cef426837ac446b4c526cce4e4630
       - name: kind
         value: task
       resolver: bundles
