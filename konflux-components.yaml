@@ -3,7 +3,7 @@ apiVersion: appstudio.redhat.com/v1alpha1
 kind: Application
 metadata:
   name: konflux-test-task-migrations
-  namespace: cqi-tenant
+  namespace: default
 spec:
   displayName: konflux-test-task-migrations
 
@@ -12,7 +12,7 @@ apiVersion: appstudio.redhat.com/v1alpha1
 kind: Component
 metadata:
   name: konflux-test-task-migrations
-  namespace: cqi-tenant
+  namespace: default
   annotations:
     # build.appstudio.openshift.io/request: configure-pac
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
