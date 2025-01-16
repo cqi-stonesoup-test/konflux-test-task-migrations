@@ -134,8 +134,10 @@ build_and_push_tasks_pipelines() {
 
     echo "🔨 build and push tasks: $TASKS_TO_BUILD"
 
+    : "${QUAY_ORG:=mytestworkload}"
+
     # BUILD_TAG=  # Created automatically by the script
-    QUAY_NAMESPACE=mytestworkload \
+    QUAY_NAMESPACE="$QUAY_ORG" \
     SKIP_BUILD=1 \
     SKIP_INSTALL=1 \
     TEST_TASKS="$TASKS_TO_BUILD" \
@@ -173,24 +175,24 @@ sed -i "s|^\(export MINTMAKER_PR_SHA\)=.*$|\1=${MINTMAKER_REVISION}|" ./hack/pre
 echo "🔺 Update Mintmaker development layer"
 
 yq -i ".resources |= [
-\"../base\",
-\"https://github.com/tkdchen/mintmaker/config/default?ref=${MINTMAKER_REVISION}\",
-\"https://github.com/tkdchen/mintmaker/config/renovate?ref=${MINTMAKER_REVISION}\"
+    \"../base\",
+    \"https://github.com/tkdchen/mintmaker/config/default?ref=${MINTMAKER_REVISION}\",
+    \"https://github.com/tkdchen/mintmaker/config/renovate?ref=${MINTMAKER_REVISION}\"
 ]" ./components/mintmaker/development/kustomization.yaml
 
 yq -i ".images |= [{
-\"name\": \"quay.io/konflux-ci/mintmaker\",
-\"newName\": \"${MINTMAKER_IMAGE%:*}\",
-\"newTag\": \"${MINTMAKER_IMAGE#*:}\"
+    \"name\": \"quay.io/konflux-ci/mintmaker\",
+    \"newName\": \"${MINTMAKER_IMAGE%:*}\",
+    \"newTag\": \"${MINTMAKER_IMAGE#*:}\"
 }]" ./components/mintmaker/development/kustomization.yaml
 
 echo "🔺 Update Mintmaker staging layer"
 
 yq -i ".resources |= [
-\"../../base\",
-\"../../base/external-secrets\",
-\"https://github.com/tkdchen/mintmaker/config/default?ref=${MINTMAKER_REVISION}\",
-\"https://github.com/tkdchen/mintmaker/config/renovate?ref=${MINTMAKER_REVISION}\"
+    \"../../base\",
+    \"../../base/external-secrets\",
+    \"https://github.com/tkdchen/mintmaker/config/default?ref=${MINTMAKER_REVISION}\",
+    \"https://github.com/tkdchen/mintmaker/config/renovate?ref=${MINTMAKER_REVISION}\"
 ]" \
 ./components/mintmaker/staging/base/kustomization.yaml
 
@@ -224,6 +226,7 @@ else
     exit 1
 fi
 
+# For testing, just use the default pipeline
 yq -i "
 (.pipelines[] | select(.name == \"docker-build-oci-ta\") | .bundle)
 |= \"${CUSTOM_DOCKER_BUILD_OCI_TA_PIPELINE_BUNDLE}\"

@@ -11,6 +11,7 @@ Requirements:
 Steps:
 
 - To prepare the testing environment, run `prepare.sh`.
+- Commit changes made to local infra-deployments repository.
 - Ensure infra-deployments is configured properly in the `hack/preview.env`.
     - Note that, GitHub App must be configured via variables `PAC_GITHUB_APP_*`.
 - Bootstrap the cluster: `./hack/bootstrap-cluster.sh preview`
