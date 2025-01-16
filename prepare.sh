@@ -121,28 +121,31 @@ run podman push "$MINTMAKER_IMAGE"
 
 ############## Build and push tasks and pipelines from build-definitions fork ##############
 
-: "${BUILD_DEFINITIONS_FORK:="$HOME/code/konflux/build-definitions"}"
-declare -r BUILD_DEFINITIONS_FORK
+build_and_push_tasks_pipelines() {
+    : "${BUILD_DEFINITIONS_FORK:="$HOME/code/konflux/build-definitions"}"
+    declare -r BUILD_DEFINITIONS_FORK
 
-echo "🔺 entering ${BUILD_DEFINITIONS_FORK}"
-cd "$BUILD_DEFINITIONS_FORK" || exit 1
-ensure_on_a_topic_branch
+    echo "🔺 entering ${BUILD_DEFINITIONS_FORK}"
+    cd "$BUILD_DEFINITIONS_FORK" || exit 1
+    ensure_on_a_topic_branch
 
-TASKS_TO_BUILD=$(yq '.spec.tasks[].name' pipelines/template-build/template-build.yaml)
-declare -r TASKS_TO_BUILD
+    TASKS_TO_BUILD=$(yq '.spec.tasks[].name' pipelines/template-build/template-build.yaml)
+    declare -r TASKS_TO_BUILD
 
-echo "🔨 build and push tasks: $TASKS_TO_BUILD"
+    echo "🔨 build and push tasks: $TASKS_TO_BUILD"
 
-# BUILD_TAG=  # Created automatically by the script
-QUAY_NAMESPACE=mytestworkload \
-TEST_REPO_NAME=build-definitions-bundles-test-builds \
-SKIP_BUILD=1 \
-SKIP_INSTALL=1 \
-TEST_TASKS="$TASKS_TO_BUILD" \
-./hack/build-and-push.sh
+    # BUILD_TAG=  # Created automatically by the script
+    QUAY_NAMESPACE=mytestworkload \
+    SKIP_BUILD=1 \
+    SKIP_INSTALL=1 \
+    TEST_TASKS="$TASKS_TO_BUILD" \
+    ./hack/build-and-push.sh
 
-save_config build-definitions-repo "${BUILD_DEFINITIONS_FORK}"
-save_config build-definitions-branch "$(git branch --show-current)"
+    save_config build-definitions-repo "${BUILD_DEFINITIONS_FORK}"
+    save_config build-definitions-branch "$(git branch --show-current)"
+}
+
+build_and_push_tasks_pipelines
 
 
 ############## Update infra-deployments ##############
@@ -176,7 +179,7 @@ yq -i ".resources |= [
 ]" ./components/mintmaker/development/kustomization.yaml
 
 yq -i ".images |= [{
-\"name\": \"${MINTMAKER_IMAGE%:*}\",
+\"name\": \"quay.io/konflux-ci/mintmaker\",
 \"newName\": \"${MINTMAKER_IMAGE%:*}\",
 \"newTag\": \"${MINTMAKER_IMAGE#*:}\"
 }]" ./components/mintmaker/development/kustomization.yaml
@@ -193,12 +196,12 @@ yq -i ".resources |= [
 
 yq -i ".images |= [
 {
-    \"name\": \"${MINTMAKER_IMAGE%:*}\",
+    \"name\": \"quay.io/konflux-ci/mintmaker\",
     \"newName\": \"${MINTMAKER_IMAGE%:*}\",
     \"newTag\": \"${MINTMAKER_IMAGE#*:}\"
 },
 {
-    \"name\": \"${MINTMAKER_RENOVATE_IMAGE%:*}\",
+    \"name\": \"quay.io/konflux-ci/mintmaker-renovate-image\",
     \"newName\": \"${MINTMAKER_RENOVATE_IMAGE%:*}\",
     \"newTag\": \"${MINTMAKER_RENOVATE_IMAGE#*:}\"
 }

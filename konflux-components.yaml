@@ -1,0 +1,31 @@
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Application
+metadata:
+  name: konflux-test-task-migrations
+  namespace: cqi-tenant
+spec:
+  displayName: konflux-test-task-migrations
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  name: konflux-test-task-migrations
+  namespace: cqi-tenant
+  annotations:
+    # build.appstudio.openshift.io/request: configure-pac
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
+    # If building an FBC component, replace the above line with the one below
+    # build.appstudio.openshift.io/pipeline: '{"name":"fbc-builder","bundle":"latest"}'
+    # git-provider: gitlab
+    # git-provider-url: https://gitlab.cee.redhat.com
+spec:
+  application: konflux-test-task-migrations
+  componentName: konflux-test-task-migrations
+  source:
+    git:
+      revision: main
+      url: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations
+      dockerfileUrl: Dockerfile
+      context: .
