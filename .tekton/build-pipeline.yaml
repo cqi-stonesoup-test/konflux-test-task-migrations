@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: build-pipeline
+spec:
+  tasks:
+  - name: clone-repository
+    taskRef:
+      params:
+      - name: name
+        value: git-clone-oci-ta
+      - name: bundle
+        value: quay.io/mytestworkload/task-git-clone-oci-ta:0.1@sha256:96ebf3440b8664172caa060d7fc1d95902d6010a572fcb0f10f7f89c4c4de508
+      - name: kind
+        value: task
+      resolver: bundles
+  - name: build-container
+    taskRef:
+      params:
+      - name: name
+        value: buildah-oci-ta
+      - name: bundle
+        value: quay.io/mytestworkload/task-buildah-oci-ta:0.3@sha256:18a3dc3cf20366abbd13e73184d234d24f8138907f61c2409c72797e39aa96f8
+      - name: kind
+        value: task
+      resolver: bundles
+  - name: summary
+    taskRef:
+      params:
+      - name: name
+        value: summary
+      - name: bundle
+        value: quay.io/mytestworkload/task-summary:0.2@sha256:f2ebcc8ff7cd21c2e0a768ca9ac0dbdfb2ec329e60291868f568c2cef99f7bb5
+      - name: kind
+        value: task
+      resolver: bundles
