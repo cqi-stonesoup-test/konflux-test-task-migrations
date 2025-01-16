@@ -1,3 +1,5 @@
 {
-    "schedule": ["at any time"]
+    "tekton": {
+        "schedule": ["at any time"]
+    }
 }
