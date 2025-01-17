@@ -20,10 +20,12 @@ spec:
       - name: name
         value: buildah-oci-ta
       - name: bundle
-        value: quay.io/mytestworkload/task-buildah-oci-ta:0.3@sha256:18a3dc3cf20366abbd13e73184d234d24f8138907f61c2409c72797e39aa96f8
+        value: quay.io/mytestworkload/task-buildah-oci-ta:0.3@sha256:24cb41782c21ffbf7a953a5d6b4e1ec2914d3b8fc7e0d3f5db3c3a04aeb785cf
       - name: kind
         value: task
       resolver: bundles
+    runAfter:
+    - clone-repository
   - name: summary
     taskRef:
       params:
