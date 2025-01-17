@@ -10,10 +10,15 @@ spec:
       - name: name
         value: git-clone-oci-ta
       - name: bundle
-        value: quay.io/mytestworkload/task-git-clone-oci-ta:0.1@sha256:96ebf3440b8664172caa060d7fc1d95902d6010a572fcb0f10f7f89c4c4de508
+        value: quay.io/mytestworkload/task-git-clone-oci-ta:0.1@sha256:0bafd44735ac634a88928d8b9d31e3fc738635a5f0bb79c69a9eb761ef94879c
       - name: kind
         value: task
       resolver: bundles
+    params:
+    - name: url
+      value: $(params.git-url)
+    - name: revision
+      value: $(params.revision)
   - name: build-container
     taskRef:
       params:
