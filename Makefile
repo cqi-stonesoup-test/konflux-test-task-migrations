@@ -14,3 +14,7 @@ onboard:
 prepare:
 	bash prepare.sh
 
+
+.PHONY: mintmaker/create-pac-secret
+mintmaker/create-pac-secret:
+	bash mintmaker-create-pac-secret.sh
