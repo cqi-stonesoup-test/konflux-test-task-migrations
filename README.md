@@ -2,10 +2,10 @@
 
 ## Requirements
 
-- Fork of konflux-ci/build-definitions
-- Fork of konflux-ci/mintmaker
-- Fork of konflux-ci/mintmaker-renovate-image
-- Fork of konflux-ci/infra-deployments
+- Fork of [konflux-ci/build-definitions](https://github.com/konflux-ci/build-definitions/)
+- Fork of [konflux-ci/mintmaker](https://github.com/konflux-ci/mintmaker/)
+- Fork of [konflux-ci/mintmaker-renovate-image](https://github.com/konflux-ci/mintmaker-renovate-image/)
+- Fork of [konflux-ci/infra-deployments](https://github.com/konflux-ci/infra-deployments)
 - OpenShift cluster
 
 ## Configuration
@@ -29,7 +29,7 @@
 - Bootstrap the cluster
 
     ```bash
-    ./hack/bootstrap-cluster.sh preview`
+    ./hack/bootstrap-cluster.sh preview
     ```
 
     - No need to wait for all components synchronized to the cluster. Testing can start as long as the application-api and mintmaker become healthy.
@@ -37,7 +37,7 @@
 - Create secret under `mintmaker` namespace
 
     ```bash
-    make mintmaker/create-pac-secret`
+    make mintmaker/create-pac-secret
     ```
 
 - Install your GitHub App to the Component repository.
