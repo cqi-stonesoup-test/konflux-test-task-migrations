@@ -77,14 +77,11 @@ Update PR: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pu
 
 Commit: https://github.com/tkdchen/build-definitions/commit/3b108756bb95bece444ec7b66896157057f7d309
 
-Update PR:
-
-- https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/3
-- https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/4
+Update PR: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/3 https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/4
 
 ### Add a task to pipeline
 
 Commit: https://github.com/tkdchen/build-definitions/commit/ad1ab70ae8cc9364ced1a979a20afd0890390f0f
 
-Update PR: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/5/files
+Update PR: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/5
 
