@@ -174,7 +174,9 @@ Trigger Mintmaker and check update pull request.
 
 - Update PR: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/8
 
-## Add a pipeline parameter
+### Add a pipeline parameter
+
+Create a migration to add pipeline parameters:
 
 ```bash
 mkdir -p task/summary/0.2/migrations/ || :
