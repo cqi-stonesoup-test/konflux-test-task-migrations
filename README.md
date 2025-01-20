@@ -173,3 +173,36 @@ QUAY_NAMESPACE=mytestworkload SKIP_BUILD=1 SKIP_INSTALL=1 TEST_TASKS="greeting" 
 Trigger Mintmaker and check update pull request.
 
 - Update PR: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/8
+
+## Add a pipeline parameter
+
+```bash
+mkdir -p task/summary/0.2/migrations/ || :
+IFS=. read -r major minor patch < <(
+    yq '.metadata.labels."app.kubernetes.io/version"' task/summary/0.2/summary.yaml
+)
+patch=$((patch+1))
+new_version="${major}.${minor}.${patch}"
+yq -i "(.metadata.labels.\"app.kubernetes.io/version\") |= \"${new_version}\"" task/summary/0.2/summary.yaml
+
+cat >"task/summary/0.2/migrations/${new_version}.sh" <<EOF
+#!/usr/bin/env bash
+set -e
+pipeline_file="\$1"
+yq -i ".spec.params += [
+    {\"name\": \"git-url\", \"type\": \"string\"},
+    {\"name\": \"revision\", \"type\": \"string\"},
+    {\"name\": \"output-image\", \"type\": \"string\"}
+]
+" "\$pipeline_file"
+EOF
+
+git add task/summary/0.2/summary.yaml "task/summary/0.2/migrations/${new_version}.sh"
+git commit -m "Add pipeline params"
+
+QUAY_NAMESPACE=mytestworkload SKIP_BUILD=1 SKIP_INSTALL=1 TEST_TASKS="summary" ./hack/build-and-push.sh
+```
+
+Commit: https://github.com/tkdchen/build-definitions/commit/808e0047930e191877bd185cfbd2ba174d380e1f
+
+Update PR: https://github.com/cqi-stonesoup-test/konflux-test-task-migrations/pull/9
