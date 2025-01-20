@@ -37,7 +37,7 @@ spec:
       - name: name
         value: summary
       - name: bundle
-        value: quay.io/mytestworkload/task-summary:0.2@sha256:9caf293f1049739e8c4e40ac84ba532388279a8d558877e7a47d0fcfc2045d42
+        value: quay.io/mytestworkload/task-summary:0.2@sha256:7a1cdb7008412d9fbf717e48fdaf9db2e5eb49a1ff8b2076e7abd1c434f5dacb
       - name: kind
         value: task
       resolver: bundles
@@ -55,3 +55,10 @@ spec:
         value: task
       - name: bundle
         value: quay.io/mytestworkload/task-apply-tags:0.1@sha256:c72d34ffb01a9340ed3783483945d0c497da194a8e2443fa338671b94a252031
+  params:
+  - name: git-url
+    type: string
+  - name: revision
+    type: string
+  - name: output-image
+    type: string
