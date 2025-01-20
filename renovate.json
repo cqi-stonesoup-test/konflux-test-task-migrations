@@ -1,5 +1,6 @@
 {
     "tekton": {
         "schedule": ["at any time"]
-    }
+    },
+    "prHourlyLimit": 0
 }
