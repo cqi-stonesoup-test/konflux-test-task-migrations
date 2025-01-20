@@ -37,9 +37,21 @@ spec:
       - name: name
         value: summary
       - name: bundle
-        value: quay.io/mytestworkload/task-summary:0.2@sha256:85c6db7b5611de5473a05483631539705b44d3a68e0105f0178b29d936b0d1b5
+        value: quay.io/mytestworkload/task-summary:0.2@sha256:c766cd5ddcdbe7a693e1adc54d1c44afb5d9edb25f4b92516f44e75761cea0b8
       - name: kind
         value: task
       resolver: bundles
     runAfter:
     - build-container
+  - name: apply-tags
+    runAfter:
+    - build-container
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: apply-tags
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-apply-tags:0.1@sha256:c72d34ffb01a9340ed3783483945d0c497da194a8e2443fa338671b94a252031
