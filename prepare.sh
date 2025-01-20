@@ -110,8 +110,6 @@ build_and_push_tasks_pipelines() {
     cd "$build_definitions_git_repo" || exit 1
     ensure_on_a_topic_branch
 
-    echo "🔨 build and push tasks: $TASKS_TO_BUILD"
-
     : "${quay_org:=mytestworkload}"
 
     # BUILD_TAG=  # Created automatically by the script
