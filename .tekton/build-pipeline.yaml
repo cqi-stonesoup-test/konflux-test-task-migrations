@@ -37,7 +37,7 @@ spec:
       - name: name
         value: summary
       - name: bundle
-        value: quay.io/mytestworkload/task-summary:0.2@sha256:7a1cdb7008412d9fbf717e48fdaf9db2e5eb49a1ff8b2076e7abd1c434f5dacb
+        value: quay.io/mytestworkload/task-summary:0.2@sha256:1a4d3c19bced36c3c1b15d29ecb5ff8d967d30924acc181cd40bdec88faee2c0
       - name: kind
         value: task
       resolver: bundles
@@ -61,4 +61,6 @@ spec:
   - name: revision
     type: string
   - name: output-image
+    type: string
+  - name: skip-checks
     type: string
