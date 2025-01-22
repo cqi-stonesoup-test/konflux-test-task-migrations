@@ -37,7 +37,7 @@ spec:
       - name: name
         value: summary
       - name: bundle
-        value: quay.io/mytestworkload/task-summary:0.2@sha256:1a4d3c19bced36c3c1b15d29ecb5ff8d967d30924acc181cd40bdec88faee2c0
+        value: quay.io/mytestworkload/task-summary:0.2@sha256:a106d9c5c1fba71ce723106a529ee32734904060486c46b901f4d93e05928593
       - name: kind
         value: task
       resolver: bundles
@@ -55,6 +55,80 @@ spec:
         value: task
       - name: bundle
         value: quay.io/mytestworkload/task-apply-tags:0.1@sha256:c72d34ffb01a9340ed3783483945d0c497da194a8e2443fa338671b94a252031
+  - name: deprecated-image-check
+    runAfter:
+    - build-container
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: deprecated-image-check
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-deprecated-image-check:0.4@sha256:17927f848166591cc4a88aa4c828eee0e77d23eacd80e5df306cd8313a636a4e
+  - name: clair-scan
+    runAfter:
+    - build-container
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: clair-scan
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-clair-scan@sha256:86ddf28e3c0228f1794b38392b6bac725a4ccfcd0d12ef1dc41c2b52cda28636
+  - name: sast-snyk-check
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: sast-snyk-check
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-sast-snyk-check:0.2@sha256:0715dea47ca4a0acadb5c5e14d3d48ff7d67fd4f747912bd06a5ae6575ef2de1
+  - name: push-dockerfile
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: push-dockerfile
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-push-dockerfile:0.1@sha256:a5cc8203fbda9aa5a75c100f7ffd9f367b12ce8d0df96c342fbc509a30054be8
+  - name: show-sbom
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: show-sbom
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-show-sbom:0.1@sha256:765ea6981026bd97003eaa174c32091b69bb4df23d92bc215ecfdedefec1a877
+  - name: prefetch-dependencies
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: prefetch-dependencies
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-prefetch-dependencies:0.1@sha256:ff95b0184ff7bfafd56ff1705df97964660003aeeca7016ad9dc89672e59e982
+  - name: clamav-scan
+    taskRef:
+      resolver: bundles
+      params:
+      - name: name
+        value: clamav-scan
+      - name: kind
+        value: task
+      - name: bundle
+        value: quay.io/mytestworkload/task-clamav-scan:0.1@sha256:1cfb82f91e20a99b574702cdb2f91b72e48f2966bb6df071ef717f208aa9a6dc
   params:
   - name: git-url
     type: string
