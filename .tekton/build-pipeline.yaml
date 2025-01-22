@@ -88,7 +88,7 @@ spec:
       - name: kind
         value: task
       - name: bundle
-        value: quay.io/mytestworkload/task-sast-snyk-check:0.2@sha256:0715dea47ca4a0acadb5c5e14d3d48ff7d67fd4f747912bd06a5ae6575ef2de1
+        value: quay.io/mytestworkload/task-sast-snyk-check:0.3@sha256:cb3c271d3d3cffb3e67832eb0ca0f64316037ff951a0393c0742ada77f3f5c83
   - name: push-dockerfile
     taskRef:
       resolver: bundles
@@ -128,7 +128,7 @@ spec:
       - name: kind
         value: task
       - name: bundle
-        value: quay.io/mytestworkload/task-clamav-scan:0.1@sha256:1cfb82f91e20a99b574702cdb2f91b72e48f2966bb6df071ef717f208aa9a6dc
+        value: quay.io/mytestworkload/task-clamav-scan:0.2@sha256:330de4e702d4090a8b1d2e77c39429226fdad9d4a7e2d53bc9f455a2c1c64d56
   params:
   - name: git-url
     type: string
