@@ -8,9 +8,9 @@ spec:
     taskRef:
       params:
       - name: name
-        value: git-clone-oci-ta
+        value: git-clone
       - name: bundle
-        value: quay.io/mytestworkload/task-git-clone-oci-ta:0.1@sha256:0bafd44735ac634a88928d8b9d31e3fc738635a5f0bb79c69a9eb761ef94879c
+        value: quay.io/mytestworkload/task-git-clone:0.1@sha256:c12445c64b7c881082bcbcbead4c7ce239cae2bbb0d2c73972088d071ab765ca
       - name: kind
         value: task
       resolver: bundles
@@ -23,9 +23,9 @@ spec:
     taskRef:
       params:
       - name: name
-        value: buildah-oci-ta
+        value: buildah
       - name: bundle
-        value: quay.io/mytestworkload/task-buildah-oci-ta:0.3@sha256:24cb41782c21ffbf7a953a5d6b4e1ec2914d3b8fc7e0d3f5db3c3a04aeb785cf
+        value: quay.io/mytestworkload/task-buildah:0.3@sha256:e9434358f68a95b2f2b47019b6d6fecf65e92640c9535313a8c3b188a09f53d9
       - name: kind
         value: task
       resolver: bundles
