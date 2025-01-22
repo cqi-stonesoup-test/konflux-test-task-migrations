@@ -78,7 +78,7 @@ spec:
       - name: kind
         value: task
       - name: bundle
-        value: quay.io/mytestworkload/task-clair-scan@sha256:86ddf28e3c0228f1794b38392b6bac725a4ccfcd0d12ef1dc41c2b52cda28636
+        value: quay.io/mytestworkload/task-clair-scan:0.2@sha256:86ddf28e3c0228f1794b38392b6bac725a4ccfcd0d12ef1dc41c2b52cda28636
   - name: sast-snyk-check
     taskRef:
       resolver: bundles
