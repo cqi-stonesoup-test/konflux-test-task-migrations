@@ -18,8 +18,15 @@
 
 ## Steps
 
-- To prepare the testing environment, run `prepare.sh`.
-- Commit changes made to local infra-deployments repository.
+- Prepare konflux-ci/mintmaker
+    - Fork, clone and checkout a topic branch
+    - Make necessary to the Renovate configuration file at `config/renovate/renovate.json`
+    - Commit and push
+    - Update these two environment variables
+        ```bash
+        export MINTMAKER_PR_SHA=<the latest commit hash>
+        export MINTMAKER_PR_OWNER=<your fork>
+        ```
 - Ensure infra-deployments is configured properly in the `hack/preview.env`.
     - Note that, GitHub App must be configured via variables `PAC_GITHUB_APP_*`.
 - Bootstrap the cluster
