@@ -2,6 +2,9 @@
 .PHONY: mintmaker/trigger
 mintmaker/trigger:
 	oc -n mintmaker apply -f trigger-mintmaker.yaml
+
+.PHONY: mintmaker/delete-DependencyUpdateCheck-cr
+mintmaker/delete-DependencyUpdateCheck-cr:
 	oc -n mintmaker delete DependencyUpdateCheck $(shell yq '.metadata.name' trigger-mintmaker.yaml)
 
 
