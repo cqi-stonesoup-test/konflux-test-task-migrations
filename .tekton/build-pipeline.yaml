@@ -1,140 +1,34 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: build-pipeline
+  name: ci-pipeline
 spec:
   tasks:
-  - name: clone-repository
+  - name: clone
+    params:
+    - name: url
+      value: "https://github.com/konflux-ci/pipeline-migration-tool"
     taskRef:
       params:
       - name: name
-        value: git-clone
+        value: clone
       - name: bundle
-        value: quay.io/mytestworkload/task-git-clone:0.1@sha256:c12445c64b7c881082bcbcbead4c7ce239cae2bbb0d2c73972088d071ab765ca
+        value: quay.io/mytestworkload/build-definitions-test/task-clone:0.2@sha256:ae3d50ab78b21bddd6582daa4dd266c8d4bfab2f8fcf0f259318049f859845c9
+      - name: kind
+        value: task
+      resolver: bundles
+  - name: lint
+    taskRef:
+      params:
+      - name: name
+        value: lint
+      - name: bundle
+        value: quay.io/mytestworkload/build-definitions-test/task-lint:0.2@sha256:7c35dfac0a1fdc3712dea2ca3ebf698d57aca7f5a76dbe5439707e0c5b89c0a1
       - name: kind
         value: task
       resolver: bundles
     params:
-    - name: url
-      value: $(params.git-url)
-    - name: revision
-      value: $(params.revision)
-  - name: build-container
-    taskRef:
-      params:
-      - name: name
-        value: buildah
-      - name: bundle
-        value: quay.io/mytestworkload/task-buildah:0.3@sha256:e9434358f68a95b2f2b47019b6d6fecf65e92640c9535313a8c3b188a09f53d9
-      - name: kind
-        value: task
-      resolver: bundles
+    - name: verbosity
+      value: -vv
     runAfter:
-    - clone-repository
-  - name: summary
-    taskRef:
-      params:
-      - name: name
-        value: summary
-      - name: bundle
-        value: quay.io/mytestworkload/task-summary:0.2@sha256:a106d9c5c1fba71ce723106a529ee32734904060486c46b901f4d93e05928593
-      - name: kind
-        value: task
-      resolver: bundles
-    runAfter:
-    - build-container
-  - name: apply-tags
-    runAfter:
-    - build-container
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: apply-tags
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-apply-tags:0.1@sha256:c72d34ffb01a9340ed3783483945d0c497da194a8e2443fa338671b94a252031
-  - name: deprecated-image-check
-    runAfter:
-    - build-container
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: deprecated-image-check
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-deprecated-image-check:0.4@sha256:17927f848166591cc4a88aa4c828eee0e77d23eacd80e5df306cd8313a636a4e
-  - name: clair-scan
-    runAfter:
-    - build-container
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: clair-scan
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-clair-scan:0.2@sha256:86ddf28e3c0228f1794b38392b6bac725a4ccfcd0d12ef1dc41c2b52cda28636
-  - name: sast-snyk-check
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: sast-snyk-check
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-sast-snyk-check:0.3@sha256:cb3c271d3d3cffb3e67832eb0ca0f64316037ff951a0393c0742ada77f3f5c83
-  - name: push-dockerfile
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: push-dockerfile
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-push-dockerfile:0.1@sha256:a5cc8203fbda9aa5a75c100f7ffd9f367b12ce8d0df96c342fbc509a30054be8
-  - name: show-sbom
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: show-sbom
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-show-sbom:0.1@sha256:765ea6981026bd97003eaa174c32091b69bb4df23d92bc215ecfdedefec1a877
-  - name: prefetch-dependencies
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: prefetch-dependencies
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-prefetch-dependencies:0.1@sha256:ff95b0184ff7bfafd56ff1705df97964660003aeeca7016ad9dc89672e59e982
-  - name: clamav-scan
-    taskRef:
-      resolver: bundles
-      params:
-      - name: name
-        value: clamav-scan
-      - name: kind
-        value: task
-      - name: bundle
-        value: quay.io/mytestworkload/task-clamav-scan:0.2@sha256:330de4e702d4090a8b1d2e77c39429226fdad9d4a7e2d53bc9f455a2c1c64d56
-  params:
-  - name: git-url
-    type: string
-  - name: revision
-    type: string
-  - name: output-image
-    type: string
-  - name: skip-checks
-    type: string
+    - clone
