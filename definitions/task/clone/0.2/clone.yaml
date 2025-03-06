@@ -3,7 +3,7 @@ kind: Task
 metadata:
   name: clone
   labels:
-    app.kubernetes.io/version: "0.2"
+    app.kubernetes.io/version: "0.2.1"
     build.appstudio.redhat.com/build_type: "docker"
   annotations:
     tekton.dev/pipelines.minVersion: "0.12.1"
