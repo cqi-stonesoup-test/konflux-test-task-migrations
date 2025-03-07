@@ -1,6 +1,15 @@
 {
-    "tekton": {
-        "schedule": ["at any time"]
-    },
-    "prHourlyLimit": 0
+  "tekton": {
+    "packageRules": [
+      {
+        "groupName": "Task updates",
+        "matchDepNames": [
+          "quay.io/mytestworkload/build-definitions-test/task-clone",
+          "quay.io/mytestworkload/build-definitions-test/task-lint"
+        ]
+      }
+    ],
+    "schedule": ["at any time"]
+  },
+  "prHourlyLimit": 0
 }
