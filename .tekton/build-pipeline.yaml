@@ -8,12 +8,14 @@ spec:
     params:
     - name: url
       value: "https://github.com/konflux-ci/pipeline-migration-tool"
+    - name: depth
+      value: "1"
     taskRef:
       params:
       - name: name
         value: clone
       - name: bundle
-        value: quay.io/mytestworkload/build-definitions-test/task-clone:0.2@sha256:ae3d50ab78b21bddd6582daa4dd266c8d4bfab2f8fcf0f259318049f859845c9
+        value: quay.io/mytestworkload/build-definitions-test/task-clone:0.2@sha256:e9a2bc2e2ab045f75e6153617bf7040026634d0a370d930bfb6826eed112618b
       - name: kind
         value: task
       resolver: bundles
