@@ -23,7 +23,7 @@ spec:
       - name: name
         value: lint
       - name: bundle
-        value: quay.io/mytestworkload/build-definitions-test/task-lint:0.2@sha256:7c35dfac0a1fdc3712dea2ca3ebf698d57aca7f5a76dbe5439707e0c5b89c0a1
+        value: quay.io/mytestworkload/build-definitions-test/task-lint:0.2@sha256:1866392f1fa1655ab09fe8325d69499b82e9fa3dd6ce667f042ce072d4a49df1
       - name: kind
         value: task
       resolver: bundles
